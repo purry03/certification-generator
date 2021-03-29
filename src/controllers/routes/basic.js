@@ -59,7 +59,9 @@ router.post("/generate", function (req, res) {
       if (err) {
         res.send(500);
       } else {
-        res.sendFile(path.resolve("../public/certifications/" + id + ".png"));
+        res.sendFile(
+          path.resolve(__basedir + "/../public/certifications/" + id + ".png")
+        );
       }
     }
   );
