@@ -35,7 +35,7 @@ router.post("/generate", function (req, res) {
     .digest("hex")
     .toString();
   QRCode.toDataURL(
-    "http://localhost/certificate/" + hash,
+    "https://certification-generator.herokuapp.com/certificate/" + hash,
     { errorCorrectionLevel: "H" },
     function (err, url) {
       var base64Data = url.replace(/^data:image\/png;base64,/, "");
