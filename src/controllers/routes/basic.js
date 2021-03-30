@@ -13,7 +13,7 @@ router.get("/certificate/:hash", function (req, res) {
   database.certification.verifyCertificate(
     req.params.hash,
     function (err, data) {
-      if (data == "") {
+      if (data == null) {
         res.send("no record found");
       } else {
         res.send(
