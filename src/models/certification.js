@@ -6,7 +6,6 @@ module.exports = async (mainDB) => {
     name: String,
     rollNumber: String,
     eventName: String,
-    hash: String,
   });
 
   const Main = mainDB.model("Certificate", certificateSchema);

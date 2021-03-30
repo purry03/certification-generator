@@ -1,8 +1,8 @@
 const modelLoader = require("../models");
 
-module.exports.verifyCertificate = async function (hash, callbackFn) {
-  modelLoader.models.certification.find(
-    { hash: hash },
+module.exports.verifyCertificate = async function (id, callbackFn) {
+  modelLoader.models.certification.findOne(
+    { id: id },
     function (err, certifications) {
       if (err) {
         callbackFn(true, err);
@@ -19,7 +19,6 @@ module.exports.saveCertification = async function (userData, callbackFn) {
     name: userData.name,
     rollNumber: userData.rollNumber,
     eventName: userData.eventName,
-    hash: userData.hash,
   });
 
   toSave.save(function (err) {

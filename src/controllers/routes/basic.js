@@ -16,7 +16,12 @@ router.get("/certificate/:hash", function (req, res) {
       if (data == "") {
         res.send("no record found");
       } else {
-        res.send(data);
+        res.send(
+          "Certificate was issued to " +
+            data.name +
+            " for the event : " +
+            data.eventName
+        );
       }
     }
   );
@@ -27,16 +32,9 @@ router.post("/generate", function (req, res) {
   var name = req.body.name;
   var rollNumber = req.body.rollNumber;
   var eventName = req.body.eventName;
-
-  var toHash = id + name + rollNumber + eventName;
-  var hash = crypto
-    .createHash("sha256")
-    .update(toHash)
-    .digest("hex")
-    .toString();
   QRCode.toDataURL(
-    "https://certification-generator.herokuapp.com/certificate/" + hash,
-    { errorCorrectionLevel: "H" },
+    "https://certification-generator.herokuapp.com/certificate/" + id,
+    { errorCorrectionLevel: "M" },
     function (err, url) {
       var base64Data = url.replace(/^data:image\/png;base64,/, "");
 
@@ -54,7 +52,7 @@ router.post("/generate", function (req, res) {
   );
 
   database.certification.saveCertification(
-    { id, name, rollNumber, eventName, hash },
+    { id, name, rollNumber, eventName },
     function (err) {
       if (err) {
         res.send(500);
