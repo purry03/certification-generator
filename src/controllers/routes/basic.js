@@ -32,9 +32,10 @@ router.post("/generate", function (req, res) {
   var name = req.body.name;
   var rollNumber = req.body.rollNumber;
   var eventName = req.body.eventName;
+  var errorCorrectionLevel = req.body.error;
   QRCode.toDataURL(
     "https://certification-generator.herokuapp.com/certificate/" + id,
-    { errorCorrectionLevel: "M" },
+    { errorCorrectionLevel: errorCorrectionLevel },
     function (err, url) {
       var base64Data = url.replace(/^data:image\/png;base64,/, "");
 
